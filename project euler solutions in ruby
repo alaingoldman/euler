@@ -1,0 +1,156 @@
+project euler solutions in ruby
+
+
+1.
+
+a = 0
+1000.times{|x|
+  if x % 3 == 0 or x % 5 == 0
+  	a = a + x
+  end
+}
+puts a
+
+
+2.
+
+x, term_a, term_b = 0,1,2
+
+while term_a + term_b < 4000000 do
+  result = term_a + term_b
+  term_a = term_b
+  term_b = result
+  if result % 2 == 0
+    x = x + result
+  end
+end
+puts "final = #{x + 2}"# adds number 2 which was skipped in the beginning as the first even term
+
+3. 
+
+num, x, a = 600851475143,2,[]
+
+while x <= num do
+  if num % x == 0
+    a.push(x)
+    num = num / x
+    x = 2
+  else
+    x = x + 1
+  end
+end
+
+4. 
+
+cal,a,b,d = 0,100,100,[]
+while a < 1000 do
+  while b < 1000 do
+    c = a * b
+    if c.to_s == c.to_s.reverse
+      d.push(c)
+    end
+    b = b + 1
+  end
+  a,b = a + 1, 100
+end
+
+d.sort
+
+5. 
+
+a,x,result = 2520,1,1
+stop_a,stop_b = false,false
+
+while stop_a == false do
+  while stop_b == false do
+    if a % x == 0
+      stop_a,stop_b,result = true,true,a  if x == 20
+      x = x + 1
+    else
+      a = a + 2520
+      stop_b = false
+      x = 1
+    end
+  end
+end
+
+6.
+
+b,c = 0,0
+1.upto(100){|a|
+  b = a * a + b}
+1.upto(100){|a|
+  c = c + a}
+puts c * c - b
+
+7. 
+
+a,b,c = 3,false,[]
+
+def is_prime?(a)
+  x = 2
+  complete = false
+  while complete == false do
+    if x > Math.sqrt(a)
+      complete = true
+      return true
+    elsif a % x != 0
+      x = x + 1 
+    else
+      complete = true
+      return false
+    end
+  end 
+end
+
+def sumDigits(num, base = 10)
+    num.to_s(base).split(//).inject(0) {|z, x| z + x.to_i(base)}
+end
+
+while c.size < 10001 do
+  if a > 5 and a.to_s.split('').last == 5#if>5 and end in 5 it's cant be prime
+    a = a + 2 # i increment by two to skip even numbers
+  elsif sumDigits(a) % 3 == 0#prime rule if some of digits = 3 it's divisible by 3
+    a = a + 2
+  elsif is_prime?(a) == false
+    a = a + 2
+  elsif is_prime?(a) == true 
+    c.push(a)
+    a = a + 2
+  end
+end
+puts c[9999]#because 2 + 3 are primes and arrays in ruby start at [0]
+
+
+8.
+
+n,b,a = 0,0,"73167176531330624.............(cont)"
+
+while n < 996 do 
+  x = a[n..n+4]
+  x = x[0].to_i * x[1].to_i * x[2].to_i * x[3].to_i * x[4].to_i
+  b = x if x > b
+  n = n + 1
+end
+
+9.
+
+a,b,c = 3,4,5
+
+while a < 1001 do 
+  while b < 1001 do
+    while c*c < (a*a + b*b +1) do
+      if a + b + c == 1000
+        if a*a + b*b == c*c
+          x = a * b * c
+          puts x
+        end
+      end 
+      c = c + 1
+    end
+  b = b + 1
+  c = b + 2
+  end
+a = a + 1
+b = a + 2
+end
